@@ -294,6 +294,9 @@ class Advert
      */
     public function setCategory(\oc\samirBundle\Entity\Category $category)
     {
+        if ($category !== NULL) {
+            $category->addAdvert($this); 
+        }
         $this->category = $category;
 
         return $this;
