@@ -4,6 +4,7 @@ namespace oc\samirBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use oc\samirBundle\Entity\Advert;
+use oc\samirBundle\Entity\Image;
 use oc\samirBundle\Entity\Category;
 use oc\samirBundle\Form\AdvertType;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +24,37 @@ class TestController extends Controller
     {
     $em = $this->getDoctrine()->getManager();
     $categoryRepository = $em->getRepository('samirBundle:Category');
-    $listCategory = $categoryRepository->findByType($id);
-    foreach ($category as $listCategory) {
-        $advert = $category->getAdvert();    
-        }
+    $category = $categoryRepository->find("6");
+    $ad = new Advert();
+    $ad->setAuthor("test");
+    $ad->setCategory($category);
+    $ad->setContent("test");
+    $ad->setCreated(new \Datetime());
+    $ad->setEmail("samir_frahi@hotmail.fr");
+    $ad->setPublished(true);
+    $ad->setTitle("test");
+    
+    $image = new Image();
+    $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
+    $image->setAlt('Job de rêve');
+    $ad->setImage($image);
+    
+    $category->addAdvert($ad);
+    
+    $em->persist($category);
+    
+    $em->persist($ad);
+    
+    $em->flush();
+
+    // Étape 2 : On « flush » tout ce qui a été persisté avant
+    //$em->flush();
+    
+    $Adverts = $category->getAdvert();
+    foreach ($Advert as $Adverts) {
+        $content .= $Advert->getTitle();
+    }
+    return $this->render('samirBundle:Test:index1.html.twig', array('name2' => $content));
     }
     
         public function addAction(Request $request, $id)
