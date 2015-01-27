@@ -82,9 +82,11 @@ class Category
      */
     public function addAdvert(\oc\samirBundle\Entity\Advert $advert)
     {
-        $this->advert[] = $advert;
+        if (!$this->advert->contains($advert)) {
+            $this->advert[] = $advert;
         
-        $advert->setCategory($this);
+            $advert->setCategory($this);
+        }
 
         return $this;
     }
