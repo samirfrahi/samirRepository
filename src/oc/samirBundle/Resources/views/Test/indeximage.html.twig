@@ -1,0 +1,16 @@
+<html>
+<body>
+    {% if advert is not null %}
+        <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+    {% endif %}
+    
+        <p>
+        Commentaire(s) :
+        {% for applications in application %}
+            <p>
+            {{ applications.content }} . " Posté par " . {{ applications.author }}{% if not loop.last %}, {% endif %}
+            </p>
+        {% endfor %}
+        </p>
+</body>
+</html>

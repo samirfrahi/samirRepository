@@ -1,0 +1,18 @@
+samir_homepage:
+    path:     /{name}
+    defaults: { _controller: samirBundle:Default:index }
+samir_page2:
+    path:     /{name}/{name2}
+    defaults: { _controller: samirBundle:Test:add }
+samir_pageform:
+    path:     /form/annonce/{id}
+    defaults: { _controller: samirBundle:Test:add }
+samir_pageformCategory:
+    path:     /form/category/{id}
+    defaults: { _controller: samirBundle:Test:testonetomany }
+samir_pagedisplay:
+    path:     display/advert/{id}
+    defaults: { _controller: samirBundle:Test:select}
+samir_pagedelete:
+    path:     delete/advert/{id}
+    defaults: { _controller: samirBundle:Test:remove}

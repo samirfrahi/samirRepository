@@ -1,0 +1,17 @@
+services:
+    oc_samirBundle.antispam:
+        class: oc\samirBundle\Antispam\OCAntispam
+        arguments: [@mailer, %locale%, 10] # Tableau d'arguments
+        
+    oc_samirBundle.doctrine.notification:
+        class: oc\samirBundle\DoctrineListener\ApplicationNotification
+        arguments: [@mailer]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            
+    oc_samirBundle.doctrine.notificationPostUpdate:
+        class: oc\samirBundle\DoctrineListener\ApplicationNotification
+        arguments: [@mailer]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+

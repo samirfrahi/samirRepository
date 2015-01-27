@@ -1,0 +1,111 @@
+<?php
+
+namespace oc\samirBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Category
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="oc\samirBundle\Entity\CategoryRepository")
+ */
+class Category
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="oc\samirBundle\Entity\Advert", mappedBy="category")
+    */
+    private $advert;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Category
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->advert = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add advert
+     *
+     * @param \oc\samirBundle\Entity\Advert $advert
+     * @return Category
+     */
+    public function addAdvert(\oc\samirBundle\Entity\Advert $advert)
+    {
+        $this->advert[] = $advert;
+        
+        $advert->setCategory($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove advert
+     *
+     * @param \oc\samirBundle\Entity\Advert $advert
+     */
+    public function removeAdvert(\oc\samirBundle\Entity\Advert $advert)
+    {
+        $this->advert->removeElement($advert);
+    }
+
+    /**
+     * Get advert
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAdvert()
+    {
+        return $this->advert;
+    }
+}
