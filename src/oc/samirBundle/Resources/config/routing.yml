@@ -1,6 +1,9 @@
 samir_homepage:
     path:     /{name}
     defaults: { _controller: samirBundle:Default:index }
+samir_picture:
+    path:     /test/display/picture
+    defaults: { _controller: samirBundle:Default:picture }
 samir_page2:
     path:     /{name}/{name2}
     defaults: { _controller: samirBundle:Test:add }
